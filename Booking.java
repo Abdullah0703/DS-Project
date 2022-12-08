@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Booking {
-
     class BookingNode {
         String name, date, time, number;
         int id;
