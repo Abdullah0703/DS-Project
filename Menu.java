@@ -62,7 +62,9 @@ class MenuBST {
 }
 
 public class Menu {
-    void menu() {
+    void menu() throws Exception {
+        int total = 0;
+        System.out.println("***** Welcome Mr "+Customer.name+" *****");
         MenuBST m = new MenuBST();
         String[] strings = {"Coffee", "Biryani", "Pizza", "Noodles", "Soup", "Cold Drink"};
         int[] price = {70, 150, 600, 120, 100, 50};
@@ -92,11 +94,11 @@ public class Menu {
                         System.out.println("Invalid ID returning to menu");
                         menu();
                     }
-                    System.out.println("ID: " + id[menuselect] + " Name:" + strings[menuselect] + " Price:" + price[menuselect]);
+                    System.out.println("ID: " + id[menuselect-1] + " Name:" + strings[menuselect-1] + " Price:" + price[menuselect-1]);
                     System.out.println("Enter the quantity");
                     int q = sc.nextInt();
-                    int total = price[menuselect] * q;
-                    System.out.println("Your total bill is: " + total);
+                    total =total + price[menuselect-1] * q;
+//                    System.out.println("Your total bill is: " + total);
                     break;
 
                 case 2:
@@ -115,6 +117,10 @@ public class Menu {
                     }
                     break;
 
+                case 3:
+                    HOME h = new HOME();
+                    h.home();
+                    break;
                 default:
                     System.out.println("Incorrect Choice!");
                     break;
@@ -123,9 +129,6 @@ public class Menu {
             choice = sc.next().charAt(0);
         }
         while (choice == 'Y' || choice == 'y');
+        System.out.println("***** Glad to tell you Mr "+Customer.name+" Your total Bill is "+total+" *****");
     }
 }
-
-
-
-
