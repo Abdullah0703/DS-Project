@@ -2,15 +2,18 @@ import java.util.Scanner;
 
 public class Customer {
     /*BECAUSE CUSTOMER COMES AND GO IN A FIFO(FIRST-IN-FIRST-OUT) MANNER THAT'S WHY USED QUEUE IN LL HERE*/
+
+    public static final String TEXT_RESET = "\u001B[0m";
+    public static final String TEXT_PURPLE = "\u001B[35m";
+
     class CustomerNode {
-        String name, id;
-        float bill;
+        String name;
+        int id;
         CustomerNode next;
 
-        public CustomerNode(String name, String id, float bill) {
+        public CustomerNode(String name, int id) {
             this.name = name;
             this.id = id;
-            this.bill = bill;
         }
     }
 
@@ -31,8 +34,8 @@ public class Customer {
         return length == 0;
     }
 
-    public void enqueue(String name, String id, float bill) {
-        CustomerNode temp = new CustomerNode(name, id, bill);
+    public void enqueue(String name, int id) {
+        CustomerNode temp = new CustomerNode(name, id);
         // If queue is empty, then new node is front and rear both
         if (rear == null) {
             front = rear = temp;
@@ -64,9 +67,9 @@ public class Customer {
             return;
         }
         CustomerNode temp = front;
-        System.out.println("Name\tID\t\tBill");
-        while (temp != null) {
-            System.out.print(temp.name + "\t\t" + temp.id + "\t\t" + temp.bill);
+        System.out.println("Name\t\tID");
+        while (temp.next != null) {  //Changed temp into temp.next
+            System.out.print(temp.id + "\t\t" + temp.name);
             temp = temp.next;
             System.out.println();
         }
@@ -79,7 +82,7 @@ public class Customer {
         char choice;
 
         do {
-            System.out.println("=================Welcome to the Customer Panel==========================================");
+            System.out.println(TEXT_PURPLE + "\t/*=====CUSTOMER PANEL=====*/" + TEXT_RESET);
             System.out.println("Select an Operation");
             System.out.println("1- Add a Customer");
             System.out.println("2-Remove a Customer");
@@ -91,11 +94,9 @@ public class Customer {
                 case 1:
                     System.out.println("Enter the name of the customer");
                     String name = sc.next();
-                    System.out.println("Enter the ID of Bill");
-                    String id = sc.next();
-                    System.out.println("Enter the Amount/bill");
-                    float bill = sc.nextFloat();
-                    c.enqueue(name, id, bill);
+                    System.out.println("Enter the ID of Customer");
+                    int id = sc.nextInt();
+                    c.enqueue(name, id);
                     break;
 
                 case 2:
@@ -109,7 +110,7 @@ public class Customer {
                     break;
 
                 case 4:
-                    HOME h = new HOME();
+                    Home h = new Home();
                     h.home();
                     break;
 
