@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class HashTable2 {
+class HashTable {
     private HashNode[] buckets;
     private int numOfBuckets; // capacity
     private int size; // number of price name pairs in hash table or number of hash nodes in a HashTable2
 
-    public HashTable2() {
+    public HashTable() {
         this(100); // default capacity
     }
 
-    public HashTable2(int capacity) {
+    public HashTable(int capacity) {
         this.numOfBuckets = capacity;
         this.buckets = new HashNode[numOfBuckets];
         this.size = 0;
@@ -92,7 +92,7 @@ class HashTable2 {
         return null;
     }
 
-    //==================GTE THE QUANTITY OF THE PRODUCT============================================
+    //==================GET THE QUANTITY OF THE PRODUCT============================================
     public Integer getQty(Integer qty) {
         if (qty == null) {
             throw new IllegalArgumentException("ID is null !!!");
@@ -160,37 +160,42 @@ class HashTable2 {
     }
 }
 
-public class InventoryRough {
-    public void inventoryroughpanel() {
-        HashTable2 h = new HashTable2();
+public class Inventory {
+    public static final String TEXT_RESET = "\u001B[0m";
+    public static final String TEXT_PURPLE = "\u001B[35m";
+
+    public void InventoryPanel() throws Exception {
+
+        HashTable h = new HashTable();
         Scanner sc = new Scanner(System.in);
         char choice;
         do {
-            System.out.println("=====INVENTORY PANEL=====");
+            System.out.println(TEXT_PURPLE + "\t/*=====INVENTORY PANEL=====*/" + TEXT_RESET);
             System.out.println("Select an Operation");
             System.out.println("1- Add an Item");
             System.out.println("2-Remove an Item");
             System.out.println("3-Print Details");
-            System.out.println("4- Adjust the quantity");
-            ArrayList<String> strings = new ArrayList<>();
-            String[] st = {"Coffee", "Biryani", "Pizza", "Noodles", "Soup", "Cold Drink"};
-            for (int i = 0; i < st.length; i++) {
-                strings.add(st[i]);
-            }
-            int[] q = {100, 100, 100, 100, 100, 100};
-            ArrayList<Integer> qty = new ArrayList<>();
-            for (int i = 0; i < q.length; i++) {
-                qty.add(q[i]);
-            }
-            int[] is = {1, 2, 3, 4, 5, 6};
-            ArrayList<Integer> id = new ArrayList<>();
-            for (int i = 0; i < is.length; i++) {
-                id.add(is[i]);
-            }
-
-            for (int i = 0; i < is.length; i++) {
-                h.put(strings.get(i), qty.get(i), id.get(i));
-            }
+            System.out.println("4-Goto Main Page");
+//            System.out.println("4- Adjust the quantity");
+//            ArrayList<String> strings = new ArrayList<>();
+//            String[] st = {"Coffee", "Biryani", "Pizza", "Noodles", "Soup", "Cold Drink"};
+//            for (int i = 0; i < st.length; i++) {
+//                strings.add(st[i]);
+//            }
+//            int[] q = {100, 100, 100, 100, 100, 100};
+//            ArrayList<Integer> qty = new ArrayList<>();
+//            for (int i = 0; i < q.length; i++) {
+//                qty.add(q[i]);
+//            }
+//            int[] is = {1, 2, 3, 4, 5, 6};
+//            ArrayList<Integer> id = new ArrayList<>();
+//            for (int i = 0; i < is.length; i++) {
+//                id.add(is[i]);
+//            }
+//
+//            for (int i = 0; i < is.length; i++) {
+//                h.put(strings.get(i), qty.get(i), id.get(i));
+//            }
 
             int ch = sc.nextInt();
             switch (ch) {
@@ -198,13 +203,13 @@ public class InventoryRough {
                     System.out.println("=====ENTER THE DETAILS=====");
                     System.out.println("Enter the name of your item:");
                     String name = sc.next();
-                    strings.add(name);
+//                    strings.add(name);
                     System.out.println("Enter the quantity of the product");
                     int qty2 = sc.nextInt();
-                    qty.add(qty2);
+//                    qty.add(qty2);
                     System.out.println("Enter the ID of the product");
                     int id2 = sc.nextInt();
-                    id.add(id2);
+//                    id.add(id2);
                     h.put(name, qty2, id2);
                     break;
 
@@ -212,10 +217,10 @@ public class InventoryRough {
                     System.out.println("=====DELETE ITEM=====");
                     System.out.println("Enter the ID of the product");
                     int id3 = sc.nextInt();
-                    if (id3 > id.size() || id3 < 0) {
-                        System.out.println("Wrong ID returning to Inventory Menu");
-                        inventoryroughpanel();
-                    }
+//                    if (id3 > id.size() || id3 < 0) {
+//                        System.out.println("Wrong ID returning to Inventory Menu");
+//                        InventoryPanel();
+//                    }
                     System.out.println("The Item: " + h.remove(id3) + " is removed");
                     break;
 
@@ -223,11 +228,12 @@ public class InventoryRough {
                     System.out.println("=====PRINT THE PRODUCT=====");
                     System.out.println("Enter the Id of the product you want to see");
                     int id4 = sc.nextInt();
-                    if (id4 > id.size() || id4 < 0) {
-                        System.out.println("Wrong ID returning to Inventory Menu");
-                        inventoryroughpanel();
-                    }
                     System.out.println("The product is: " + h.getname(id4) + " and the ID is: " + h.getID(id4));
+                    break;
+
+                case 4:
+                    Home h1 = new Home();
+                    h1.home();
                     break;
 
                 default:
