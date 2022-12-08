@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 class Welcome {
@@ -19,13 +20,66 @@ class User_Authentication {
     public static final String TEXT_RESET = "\u001B[0m";
     public static final String TEXT_PURPLE = "\u001B[35m";
 
+
+    class AuthenticationNode {
+        String str;
+        AuthenticationNode next;
+    }
+
+    class Stack {
+        AuthenticationNode top;
+        int length;
+
+        Stack() {
+            top = null;
+            length = 0;
+        }
+
+        public boolean isEmpty() {
+            return top == null;
+        }
+
+        public void push(String name) {
+            AuthenticationNode temp = new AuthenticationNode();
+            temp.str = name;
+            if (temp == null) {
+                System.out.println("Stack overflow");
+            }
+            temp.next = top;
+            top = temp;
+        }
+
+        public String popname() {
+            if (!isEmpty()) {
+                String a = top.str;
+                top = top.next;
+                return a;
+            } else {
+                System.out.println("Stack is Empty");
+                return null;
+            }
+        }
+
+        public String peekname() {
+            if (isEmpty()) {
+                System.out.println("Stack is empty");
+                return null;
+            }
+            return top.str;
+        }
+    }
+
     public void Access() throws Exception {
         String username, password;
+        Stack stackUsername = new Stack();
+        Stack stackPassword = new Stack();
         Scanner s = new Scanner(System.in);
         System.out.print("Enter username: ");
         username = s.nextLine();
+        stackUsername.push("admin");
         System.out.print("Enter password: ");
         password = s.nextLine();
+        stackPassword.push("admin");
         System.out.printf("Verifying");
         int icounter = 3;
         while (icounter != 0) {
@@ -35,8 +89,7 @@ class User_Authentication {
         }
 
         System.out.println("");
-        if (username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("admin")) {
-
+        if (username.equals(stackUsername.peekname()) && password.equals(stackPassword.peekname())) {
             System.out.println(TEXT_GREEN + "////////////////////////////////////////////////////////////////////");
             System.out.println(TEXT_GREEN + "\t\t\tAuthentication Successful");
             System.out.println(TEXT_GREEN + "////////////////////////////////////////////////////////////////////" + TEXT_RESET);
@@ -62,7 +115,7 @@ class HOME {
         Scanner sc = new Scanner(System.in);
         System.out.println(TEXT_PURPLE + "**********MAIN PAGE**********" + TEXT_RESET);
         System.out.println("Please Choose the panel");
-        System.out.println("1:Inventory Panel \n2:Customer Panel \n3:Booking Panel \n4:LogOff \n5:exit ");
+        System.out.println("1:Inventory Panel \n2:Customer Panel \n3:Booking Panel \n4:LogOff \n5:exit \n6-Menu");
         System.out.printf("Your choice : ");
         int choice = sc.nextInt();
         do {
@@ -80,12 +133,18 @@ class HOME {
                     b.BookingPanel();
                 }
                 case 4 -> {
-                    User_Authentication u = new User_Authentication();
+                    Authentication u = new Authentication();
                     u.Access();
                 }
                 case 5 -> {
                     System.exit(0);
                 }
+
+                case 6 -> {
+                    Menu m = new Menu();
+                    m.menu();
+                }
+
                 default -> {
                     System.out.println("Incorrect choice!!!\nReturning Back to Home Page");
                     HOME h = new HOME();
@@ -103,7 +162,7 @@ public class RoughPanel {
     public static void main(String[] args) throws Exception {
         Welcome w = new Welcome();
         w.welcome();
-        User_Authentication s = new User_Authentication();
+        Authentication s = new Authentication();
         s.Access();
     }
 }
