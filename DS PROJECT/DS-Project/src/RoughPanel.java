@@ -107,6 +107,7 @@ class User_Authentication {
     }
 }
 
+
 class HOME {
     public static final String TEXT_PURPLE = "\u001B[35m";
     public static final String TEXT_RESET = "\u001B[0m";
@@ -121,8 +122,8 @@ class HOME {
         do {
             switch (choice) {
                 case 1 -> {
-                    InventoryMain i = new InventoryMain();
-                    i.InverntoryPanel();
+                    InventoryRough i = new InventoryRough();
+                    i.inventoryroughpanel();
                 }
                 case 2 -> {
                     Customer c = new Customer();
@@ -133,7 +134,7 @@ class HOME {
                     b.BookingPanel();
                 }
                 case 4 -> {
-                    Authentication u = new Authentication();
+                    User_Authentication u = new User_Authentication();
                     u.Access();
                 }
                 case 5 -> {
@@ -162,7 +163,7 @@ public class RoughPanel {
     public static void main(String[] args) throws Exception {
         Welcome w = new Welcome();
         w.welcome();
-        Authentication s = new Authentication();
-        s.Access();
+        User_Authentication us = new User_Authentication();
+        us.Access();
     }
 }
